@@ -32,7 +32,7 @@ class Home extends React.Component {
         <div class="card-deck">
           <div class="card">
             <img
-              src="https://comps.canstockphoto.es/kawaii-computadora-de-computadora-eps-vectorial_csp59451780.jpg"
+              src="https://image.freepik.com/vector-gratis/imagen-guino-computadora-kawaii_18591-8890.jpg"
               class="card-img-top"
               alt="..."
             />
