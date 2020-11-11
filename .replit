@@ -1,0 +1,5 @@
+language = "nodejs"
+#run = "cd FRONT-END-ATRAVEZ-DEL-TIEMPO && npm i"
+#run = "cd FRONT-END-ATRAVEZ-DEL-TIEMPO && npm start"
+#run = "cd Backend && npm i"
+run = "cd Backend && npm run dev"

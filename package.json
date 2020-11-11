@@ -1,0 +1,27 @@
+{
+  "name": "equipo4sacppi2020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "node": "^15.0.1",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gissellmontes/equipo4_sac_ppi2020.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gissellmontes/equipo4_sac_ppi2020/issues"
+  },
+  "homepage": "https://github.com/Gissellmontes/equipo4_sac_ppi2020#readme"
+}
