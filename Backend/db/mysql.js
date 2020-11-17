@@ -2,10 +2,10 @@ mysql = require('mysql');
 const util = require('util')
 var pool  = mysql.createPool({
   connectionLimit : 10,
-  host     : 'bfb0uqoprf7gt47xneak-mysql.services.clever-cloud.com',
-  user     : 'ux6soryfrgj4sob3',
-  password : '7ZbXR8cC9mzQbhWNn2rd',
-  database : 'bfb0uqoprf7gt47xneak'
+  host     : "brwugsuxv6kjhags9gjf-mysql.services.clever-cloud.com",
+  user     : 'ult3aumzkhy5u6ag',
+  password : 'Nq0Gf1d0JzVNFI5Fko0v',
+  database : 'brwugsuxv6kjhags9gjf'
 });
 
 pool.on('release', function (connection) {
