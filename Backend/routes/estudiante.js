@@ -19,3 +19,4 @@ router.post('/estudiante', (req, res) => {})
 router.put('/estudiante/:id', (req, res) => {})
 
 router.delete('/estudiante/:id', (req, res) => {})
+module.exports = router
