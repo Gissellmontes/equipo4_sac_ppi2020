@@ -32,9 +32,9 @@ class Registro extends React.Component {
                 onChange={this.handleChange}
                 formValues={this.state.form}
               />
-              <h5 className="regis1">Ya tienes una cuenta?</h5>
-              <Link to="/iniciarsesion" className="regis2 btn">
-                Inicia sesión
+              <h5 className="regis1">¿Ya tienes una cuenta?</h5>
+              <Link to="/InicioSesion" className="regis2 btn">
+                Inicia Sesión
               </Link>
             </div>
           </div>

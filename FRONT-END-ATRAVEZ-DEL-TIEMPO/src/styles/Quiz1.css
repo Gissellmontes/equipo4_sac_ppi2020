@@ -5,10 +5,10 @@ body {
   background: #bdc3c7; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #9bfc4b,
+    #8dd452,
     #bdc3c7
   ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #73fa73, #b8ff75);
+  background: linear-gradient(to right, #5cbef7, #2861ac);
 }
 
 .result {
