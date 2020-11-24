@@ -25,13 +25,71 @@ router.get('/estudiante/:correo', (req, res) => {
 
 router.post('/estudiante', (req, res) => {
   try{
-
+    let {
+      correo,
+      contrasena,
+      codgrupo
+    } = req.body
+    const SQL = `INSERT INTO Estudiante(Correo,Contrasena,Cod_grupo) VALUES(?,?,?)`
+    const data = [correo, contrasena, codgrupo]
+    connection.query(SQL, data,(error, result, fields) => {
+      if(error){
+      console.log(error)
+      res.status(500).json({mensaje : "Error durante la consulta"})
+    }else{
+      res.json({mensaje : "Estudiante insertado correctamente."})
+    }
+    })
   }catch(error){
-    
+    console.log(error)
+      res.status(500).json("Error")
   }
 })
 
-router.put('/estudiante/:id', (req, res) => {})
+router.put('/estudiante/:correo', (req, res) => {
+  try{
+    let correo = req.params.correo
+    let {
+      contrasena,
+      codgrupo
+    } = req.body
+    const SQL = `UPDATE Estudiante SET Contrasena = ?,Cod_grupo = ? WHERE Correo = ?`
+    const data = [contrasena, codgrupo,correo]
+    connection.query(SQL, data,(error, result, fields) => {
+      if(error){
+      console.log(error)
+      res.status(500).json({mensaje : "Error durante la consulta"})
+    }else{
+      res.json({mensaje : "Estudiante actualizado correctamente."})
+    }
+    })
+  }catch(error){
+    console.log(error)
+      res.status(500).json("Error")
+  }
+})
 
-router.delete('/estudiante/:id', (req, res) => {})
+router.delete('/estudiante/:correo', (req, res) => {
+  try{
+    let correo = req.params.correo
+  
+    const SQL = `DELETE FROM Estudiante WHERE Correo = ?`
+    const data = [correo]
+    connection.query(SQL, data,(error, result, fields) => {
+      if(error){
+      console.log(error)
+      res.status(500).json({mensaje : "Error durante la consulta"})
+    }else{
+      console.log(result)
+      if(result.affectedRows > 0)
+        res.json({mensaje : "Estudiante eliminado correctamente."})
+      else
+        res.json({mensaje : "El estudiante no existe con este correo o ya fue eliminado."})
+    }
+    })
+  }catch(error){
+    console.log(error)
+      res.status(500).json("Error")
+  }
+})
 module.exports = router
