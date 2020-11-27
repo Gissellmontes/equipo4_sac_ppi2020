@@ -1,12 +1,10 @@
 const {Router} = require('express')
 const router = Router()
-const path = require ('path');
-const multer = require ('multer');
-const { v4: uuidv4 } = require ('uuid');
 const {connection} = require('./../db/mysql')
 
-router.get('/profesor', (req, res) => {
-  connection.query("SELECT * FROM Profesor", (error, result, fields) => {
+
+router.get('/evaluacion', (req, res) => {
+  connection.query("SELECT * FROM evaluacion", (error, result, fields) => {
     if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
@@ -16,31 +14,31 @@ router.get('/profesor', (req, res) => {
    })
 })
 
-router.get('/profesor/:correo', (req, res) => {
-  let correo = req.params.correo
-  connection.query("SELECT * FROM profesor WHERE Correo = ?",[Correo] ,(error, result, fields) => {
+router.get('/evaluacion/:fecha', (req, res) => {
+  let fecha = req.params.fecha
+  connection.query("SELECT * FROM evaluacion WHERE Fecha = ?",[fecha] ,(error, result, fields) => {
     if(result[0])
       res.json(result[0])
     else
-      res.json({})
+      res.json({mensaje : "Error durante la consulta"})
    })
 })
 
-router.post('/profesor', (req, res) => {
+router.post('/evaluacion', (req, res) => {
   try{
     let {
-      Correo,
-      Contrasena,
-      Nombre
+      Fecha,
+      Puntaje,
+      Correo
     } = req.body
-    const SQL = `INSERT INTO Profesor(Correo,Contrasena,Nombre) VALUES(?,?,?)`
-    const data = [Correo, Contrasena, Nombre]
+    const SQL = `INSERT INTO evaluacion(Fecha,Puntaje,Correo) VALUES(?,?,?)`
+    const data = [Fecha, Puntaje, Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
     }else{
-      res.json({mensaje : "profesor insertado correctamente."})
+      res.json({mensaje : "evaluacion insertada correctamente."})
     }
     })
   }catch(error){
@@ -49,21 +47,21 @@ router.post('/profesor', (req, res) => {
   }
 })
 
-router.put('/Profesor/:correo', (req, res) => {
+router.put('/evaluacion/:fecha', (req, res) => {
   try{
-    let Correo = req.params.correo
+    let fecha = req.params.fecha
     let {
-      Contrasena,
-      Nombre
+      Puntaje,
+      Correo
     } = req.body
-    const SQL = `UPDATE Profesor SET Contrasena = ?,Nombre = ? WHERE Correo = ?`
-    const data = [Contrasena, Nombre,Correo]
+    const SQL = `UPDATE evaluacion SET Puntaje = ?,Correo = ? WHERE Fecha = ?`
+    const data = [Puntaje, Correo,Fecha]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
     }else{
-      res.json({mensaje : "Profesor actualizado correctamente."})
+      res.json({mensaje : "evaluacion actualizada correctamente."})
     }
     })
   }catch(error){
@@ -72,12 +70,12 @@ router.put('/Profesor/:correo', (req, res) => {
   }
 })
 
-router.delete('/Profesor/:correo', (req, res) => {
+router.delete('/evaluacion/:fecha', (req, res) => {
   try{
-    let   Correo = req.params.correo
+    let  fecha = req.params.fecha
   
-    const SQL = `DELETE FROM Profesor WHERE Correo = ?`
-    const data = [Correo]
+    const SQL = `DELETE FROM evaluacion WHERE Fecha = ?`
+    const data = [fecha]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
@@ -85,9 +83,9 @@ router.delete('/Profesor/:correo', (req, res) => {
     }else{
       console.log(result)
       if(result.affectedRows > 0)
-        res.json({mensaje : "Profesor eliminado correctamente."})
+        res.json({mensaje : "evaluacion eliminada correctamente."})
       else
-        res.json({mensaje : "Profesor no existe con este correo o ya fue eliminado."})
+        res.json({mensaje :  "evaluacion no existe con esta fecha o ya fue eliminada."})
     }
     })
   }catch(error){
@@ -95,4 +93,5 @@ router.delete('/Profesor/:correo', (req, res) => {
       res.status(500).json("Error")
   }
 })
+
 module.exports = router
