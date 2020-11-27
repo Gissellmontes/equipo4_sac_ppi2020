@@ -2,8 +2,8 @@ const {Router} = require('express')
 const router = Router()
 const {connection} = require('./../db/mysql')
 
-router.get('/evaluacion', (req, res) => {
-  connection.query("SELECT * FROM evaluacion", (error, result, fields) => {
+router.get('/profesor', (req, res) => {
+  connection.query("SELECT * FROM Profesor", (error, result, fields) => {
     if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
@@ -13,9 +13,9 @@ router.get('/evaluacion', (req, res) => {
    })
 })
 
-router.get('/evaluacion/:fecha', (req, res) => {
-  let Fecha = req.params.fecha
-  connection.query("SELECT * FROM evaluacion WHERE Fecha = ?",[Fecha] ,(error, result, fields) => {
+router.get('/profesor/:correo', (req, res) => {
+  let correo = req.params.correo
+  connection.query("SELECT * FROM profesor WHERE Correo = ?",[Correo] ,(error, result, fields) => {
     if(result[0])
       res.json(result[0])
     else
@@ -23,22 +23,21 @@ router.get('/evaluacion/:fecha', (req, res) => {
    })
 })
 
-router.post('/evaluacion', (req, res) => {
+router.post('/profesor', (req, res) => {
   try{
     let {
-      Fecha,
-      Puntaje,
       Correo,
-      Id_puntaje
+      Contrasena,
+      Nombre
     } = req.body
-    const SQL = `INSERT INTO evaluacion(Fecha,Puntaje,Correo) VALUES(?,?,?)`
-    const data = [Fecha, Puntaje, Correo,Id_puntaje]
+    const SQL = `INSERT INTO Profesor(Correo,Contrasena,Nombre) VALUES(?,?,?)`
+    const data = [Correo, Contrasena, Nombre]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
     }else{
-      res.json({mensaje : "evaluacion insertada correctamente."})
+      res.json({mensaje : "profesor insertado correctamente."})
     }
     })
   }catch(error){
@@ -47,22 +46,21 @@ router.post('/evaluacion', (req, res) => {
   }
 })
 
-router.put('/evaluacion/:Fecha', (req, res) => {
+router.put('/Profesor/:correo', (req, res) => {
   try{
-    let Fecha = req.params.fecha
+    let Correo = req.params.correo
     let {
-      Puntaje,
-      Correo,
-      Id_puntaje
+      Contrasena,
+      Nombre
     } = req.body
-    const SQL = `UPDATE evaluacion SET Puntaje = ?,Correo = ?, Id_puntaje = ? WHERE Fecha = ?`
-    const data = [Puntaje, Correo,Fecha,Id_puntaje]
+    const SQL = `UPDATE Profesor SET Contrasena = ?,Nombre = ? WHERE Correo = ?`
+    const data = [Contrasena, Nombre,Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
     }else{
-      res.json({mensaje : "evaluacion actualizada correctamente."})
+      res.json({mensaje : "Profesor actualizado correctamente."})
     }
     })
   }catch(error){
@@ -71,12 +69,12 @@ router.put('/evaluacion/:Fecha', (req, res) => {
   }
 })
 
-router.delete('/evaluacion/:Fecha', (req, res) => {
+router.delete('/Profesor/:correo', (req, res) => {
   try{
-    let   Fecha = req.params.fecha
+    let   Correo = req.params.correo
   
-    const SQL = `DELETE FROM evaluacion WHERE Fecha = ?`
-    const data = [Fecha]
+    const SQL = `DELETE FROM Profesor WHERE Correo = ?`
+    const data = [Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
@@ -84,9 +82,9 @@ router.delete('/evaluacion/:Fecha', (req, res) => {
     }else{
       console.log(result)
       if(result.affectedRows > 0)
-        res.json({mensaje : "evaluacion eliminada correctamente."})
+        res.json({mensaje : "Profesor eliminado correctamente."})
       else
-        res.json({mensaje : "evaluacion no existe con esta fecha o ya fue eliminado."})
+        res.json({mensaje : "Profesor no existe con este correo o ya fue eliminado."})
     }
     })
   }catch(error){

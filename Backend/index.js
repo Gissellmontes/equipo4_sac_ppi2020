@@ -1,21 +1,20 @@
-const express = require("express")
+const express = require(`express`)
 const morgan = require("morgan")
 const app = express()
 
-//middlewares
-app.use(morgan("dev"))
+
+//Middelwares
+app.use(morgan('dev'))
 app.use(express.json())
 
-//ROUTES
-app.use("/api/", require ('./routes/estudiante'))
+//Routes
+app.use("/api/", require("./routes/estudiantes"))
+app.use("/api/", require("./routes/profesor"))
 
-app.get("/", (req,res) => {
-  res.send("API CRUD")
+app.get("/", function (req, res) {
+    res.send("Hola, bienvenidos al un nuevo mundo por explorar")
 })
 
-
-app.set("puerto", 9001)
-
-app.listen(app.get("puerto"), () => {
-  console.log(`Servidor escucnado en el puerto ${app.get("puerto")}`)
+app.listen(8030, function () {
+    console.log("El servidor esta corriendo en un puerto 8030")
 })
