@@ -10,6 +10,7 @@ app.use(express.json())
 //Routes
 app.use("/api/", require("./routes/estudiante"))
 app.use("/api/", require("./routes/profesor"))
+app.use("/api/", require("./routes/evaluacion"))
 
 app.get("/", function (req, res) {
     res.send("Hola, bienvenidos al un nuevo mundo por explorar")
