@@ -3,7 +3,7 @@ const router = Router()
 const {connection} = require('./../db/mysql')
 
 router.get('/estudiante', (req, res) => {
-  connection.query("SELECT * FROM estudiante", (error, result, fields) => {
+  connection.query("SELECT * FROM Estudiante", (error, result, fields) => {
     if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
@@ -14,8 +14,8 @@ router.get('/estudiante', (req, res) => {
 })
 
 router.get('/estudiante/:correo', (req, res) => {
-  let correo = req.params.correo
-  connection.query("SELECT * FROM estudiante WHERE Correo = ?",[correo] ,(error, result, fields) => {
+  let Correo = req.params.correo
+  connection.query("SELECT * FROM Estudiante WHERE Correo = ?",[Correo] ,(error, result, fields) => {
     if(result[0])
       res.json(result[0])
     else
@@ -26,12 +26,12 @@ router.get('/estudiante/:correo', (req, res) => {
 router.post('/estudiante', (req, res) => {
   try{
     let {
-      correo,
-      contrasena,
-      codgrupo
+      Correo,
+      Contrasena,
+      Codgrupo
     } = req.body
-    const SQL = `INSERT INTO estudiante(Correo,Contrasena,Cod_grupo) VALUES(?,?,?)`
-    const data = [correo, contrasena, codgrupo]
+    const SQL = `INSERT INTO Estudiante(Correo,Contrasena,Cod_grupo) VALUES(?,?,?)`
+    const data = [Correo, Contrasena, Codgrupo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
@@ -48,13 +48,13 @@ router.post('/estudiante', (req, res) => {
 
 router.put('/estudiante/:correo', (req, res) => {
   try{
-    let correo = req.params.correo
+    let Correo = req.params.correo
     let {
-      contrasena,
-      codgrupo
+      Contrasena,
+      Codgrupo
     } = req.body
-    const SQL = `UPDATE estudiante SET Contrasena = ?,Cod_grupo = ? WHERE Correo = ?`
-    const data = [contrasena, codgrupo,correo]
+    const SQL = `UPDATE Estudiante SET Contrasena = ?,Cod_grupo = ? WHERE Correo = ?`
+    const data = [Contrasena, Codgrupo,Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
@@ -71,10 +71,10 @@ router.put('/estudiante/:correo', (req, res) => {
 
 router.delete('/estudiante/:correo', (req, res) => {
   try{
-    let correo = req.params.correo
+    let Correo = req.params.correo
   
     const SQL = `DELETE FROM Estudiante WHERE Correo = ?`
-    const data = [correo]
+    const data = [Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
       console.log(error)
