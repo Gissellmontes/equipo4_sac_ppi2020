@@ -7,7 +7,7 @@ const {connection} = require('./../db/mysql')
 
 
 router.get('/evaluacion', (req, res) => {
-  connection.query("SELECT * FROM evaluacion", (error, result, fields) => {
+  connection.query("SELECT * FROM Evaluacion", (error, result, fields) => {
     if(error){
       console.log(error)
       res.status(500).json({mensaje : "Error durante la consulta"})
@@ -19,7 +19,7 @@ router.get('/evaluacion', (req, res) => {
 
 router.get('/evaluacion/:fecha', (req, res) => {
   let fecha = req.params.fecha
-  connection.query("SELECT * FROM evaluacion WHERE Fecha = ?",[fecha] ,(error, result, fields) => {
+  connection.query("SELECT * FROM Evaluacion WHERE Fecha = ?",[fecha] ,(error, result, fields) => {
     if(result[0])
       res.json(result[0])
     else
@@ -34,7 +34,7 @@ router.post('/evaluacion', (req, res) => {
       Puntaje,
       Correo
     } = req.body
-    const SQL = `INSERT INTO evaluacion(Fecha,Puntaje,Correo) VALUES(?,?,?)`
+    const SQL = `INSERT INTO Evaluacion(Fecha,Puntaje,Correo) VALUES(?,?,?)`
     const data = [Fecha, Puntaje, Correo]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
@@ -57,7 +57,7 @@ router.put('/evaluacion/:fecha', (req, res) => {
       Puntaje,
       Correo
     } = req.body
-    const SQL = `UPDATE evaluacion SET Puntaje = ?,Correo = ? WHERE Fecha = ?`
+    const SQL = `UPDATE Evaluacion SET Puntaje = ?,Correo = ? WHERE Fecha = ?`
     const data = [Puntaje, Correo,Fecha]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
@@ -77,7 +77,7 @@ router.delete('/evaluacion/:fecha', (req, res) => {
   try{
     let  fecha = req.params.fecha
   
-    const SQL = `DELETE FROM evaluacion WHERE Fecha = ?`
+    const SQL = `DELETE FROM Evaluacion WHERE Fecha = ?`
     const data = [fecha]
     connection.query(SQL, data,(error, result, fields) => {
       if(error){
